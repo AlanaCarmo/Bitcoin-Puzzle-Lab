@@ -1,0 +1,46 @@
+# Dependências
+node_modules/
+vendor/
+venv/
+.venv/
+__pycache__/
+*.pyc
+files_locais/
+
+# Build e saída
+dist/
+build/
+out/
+target/
+*.o
+*.exe
+
+# Variáveis de ambiente e segredos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Arquivos de editor e IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Cobertura de testes e cache
+coverage/
+.cache/
+.pytest_cache/
+*.tmp
+
