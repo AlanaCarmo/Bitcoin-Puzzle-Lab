@@ -22,6 +22,9 @@ target/
 *.pem
 *.key
 
+# Saídas da busca: keys.txt guarda chaves privadas em texto puro
+*.txt
+
 # Logs
 logs/
 *.log
