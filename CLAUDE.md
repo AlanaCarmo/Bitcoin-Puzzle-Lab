@@ -60,6 +60,7 @@ Origem: https://github.com/lmajowka/btc-finder
 - Jamais comitar na main.
 - Commit só deve ser feito com aprovação explicita do usuario.
 - Push exige nova aprovação explícita, solicitada após o commit aprovado. A aprovação do commit não autoriza o push.
+- Push via SSH, sem alterar o remoto configurado: `git push git@github.com:AlanaCarmo/Bitcoin-Puzzle-Lab.git <branch>`. O `origin` em HTTPS não tem credencial nesta máquina. Após o push, confirmar com `git ls-remote` que o commit remoto é igual ao `HEAD` local.
 - Ambientes de integração todos em docker com os itens versionados.
 - Regras de escrita/criação/alteração de código:
     - Sempre usar clean code
