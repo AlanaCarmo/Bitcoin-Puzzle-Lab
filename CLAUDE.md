@@ -4,17 +4,6 @@ Programa de terminal em Node.js (ES Modules) que testa chaves privadas de Bitcoi
 
 Origem: https://github.com/lmajowka/btc-finder
 
-## Comandos
-
-```bash
-npm install          # instalar dependências
-npm start            # roda node src/main.js (sempre a partir da raiz do projeto)
-```
-
-Docker com o código local: `docker build -f Dockerfile.local -t btc-finder-local .` e `docker run -it --name btc-finder-local -p 3000:3000 btc-finder-local`. O `Dockerfile` original clona o GitHub e NÃO usa o código local.
-
-Não existem testes, lint nem build. O programa é interativo (faz perguntas no terminal), então não rode `npm start` em automação sem fornecer as respostas por stdin.
-
 ## Mapa do código
 
 - `src/main.js`: entrada. Banner, pergunta da interface web, menu (carteira + 5 modos), cria workers nos modos 4 e 5.
@@ -31,13 +20,57 @@ Não existem testes, lint nem build. O programa é interativo (faz perguntas no 
 - `docs/specs/`: uma spec por área (busca sequencial, busca por blocos, interface web).
 - `docs/tasks.md`: backlog de melhorias com critérios de aceite (T-xx), derivado dos pontos de atenção (PA-xx).
 
+## Plano de implementação
+
+<!-- - Documente features dos itens implementados em docs/FEATURES.md -->
+- Levante as melhorias necessárias, limitada a 10 itens, e registre cada uma como uma task em `docs/tasks.md`, com critérios de aceite claros.
+- Apresente as tasks ao usuário uma a uma e pergunte qual deve ser implementada. Não implemente nenhuma sem solicitação explícita.
+- Em cada pergunta, inclua a opção "Solicitar nova melhoria", para que o usuário possa propor itens que ainda não estejam no roadmap.
+- Ao concluir uma task, faça o commit no git somente após a aprovação explícita do usuário.
+- Antes de commitar, mostre a mensagem de commit sugerida e aguarde o ok.
+
 ## Como trabalhar neste projeto
 
-1. Antes de alterar uma área, leia a spec dela e as RN envolvidas.
-2. Mudança de comportamento = atualizar a spec e `docs/requirements.md` no mesmo trabalho. Mudança que corrige um item de `docs/tasks.md` = marcar o item como feito.
-3. Preserve as RN existentes, a menos que a tarefa peça mudá-las. Se uma RN parecer um bug, não corrija em silêncio: registre em `docs/tasks.md` ou pergunte.
-4. Faça mudanças pequenas e verificáveis. Para validar lógica sem rodar a busca de verdade, use faixas minúsculas (carteira 1 a 10) e as funções puras, nunca faixas grandes.
-5. Quando criar testes, use o runner nativo do Node (`node --test`), sem adicionar dependências sem necessidade.
+- Antes de alterar uma área, leia a spec dela e as RN envolvidas.
+- Todas as decisões devem ser documentadas em docs/DECISIONS.md
+- Documente eventuais gaps em docs/GAPS.md e sua mitigação se aplicavel.
+- Mudança de comportamento = atualizar a spec e `docs/requirements.md` no mesmo trabalho. Mudança que corrige um item de `docs/tasks.md` = marcar o item como feito.
+- Preserve as RN existentes, a menos que a tarefa peça mudá-las. Se uma RN parecer um bug, não corrija em silêncio: registre em `docs/tasks.md` ou pergunte.
+- Faça mudanças pequenas e verificáveis. Para validar lógica sem rodar a busca de verdade, use faixas minúsculas (carteira 1 a 10) e as funções puras, nunca faixas grandes.
+- Quando criar testes, use o runner nativo do Node (`node --test`), sem adicionar dependências sem necessidade.
+
+## Regras obrigatórias 
+
+- Executar exclusivamente operações de leitura em qualquer base de dados.
+- Nunca criar, modificar, excluir ou reiniciar recursos.
+- Nunca executar deploys ou alterações de infraestrutura.
+- Nunca publicar mensagens, executar jobs ou disparar workflows.
+- Nunca assumir que uma operação é segura apenas pelo nome.
+- Não solicitar permissões adicionais para executar operações de escrita.
+- O arquivo deve ser escrito em português, com linguagem técnica, objetiva e sem instruções redundantes.
+- Priorize segurança, precisão, baixo custo de consultas.
+- Regra: decisões arquiteturais relevantes devem ser questionadas ao usuario em forma de questionario cada uma todas seguindo o seguinte padrao
+  - propor multiplas opções e incluir uma opção recomendada
+  - para cada opção descrever "que é", "exemplo", "pros", "contras"
+  - e uma opção em branco para o usuario escrever outro item se necessario
+  - questionario e alternativas em pt-br
+- Novas regras de definição devem ser incluidas em CLAUDE.md mediante solicitação.
+- Evite puxar informações extensas para a janela de contexto, preze por uso eficiente de tokens.
+- Jamais utilizar credenciais reais nos testes de integração.
+- Jamais comitar na main.
+- Commit só deve ser feito com aprovação explicita do usuario.
+- Push exige nova aprovação explícita, solicitada após o commit aprovado. A aprovação do commit não autoriza o push.
+- Ambientes de integração todos em docker com os itens versionados.
+- Regras de escrita/criação/alteração de código:
+    - Sempre usar clean code
+    <!-- - regra: use logs bem estruturados -->
+    - Sempre construa testes primeiro e depois implementação.
+    - Em caso de bugs construa os testes para pegar o bug e entao solucione o bug
+    - Sempre escrever código em ingles.
+    - Todos os comentarios e documentações em markdown em portugues.
+    - Não use separadores textuais, emojis, e evite poluição textual comente apenas o que for relevante com a perspectiva de lógica de código ou RN.
+    - Adote sempre uma única forma de fazer cada tarefa, priorizando simplicidade e consistência.
+    - Nos testes unitarios jamais utilizar credenciais de ambientes reais.
 
 ## Convenções do código
 
